@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<forms:BaseContentPage
+    xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms" xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:localConverter="clr-namespace:TD2.Converter"
+    mc:Ignorable="d"
+    x:Class="TD2.View.CustomPage">
+
+    <ContentPage.Resources>
+        <localConverter:ImageIdConverter x:Key="ImageIdConverter" />
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry Text="{Binding FirstName}" />
+            <Entry Text="{Binding LastName}" />
+            <Image Source="{Binding ImageId, Converter={StaticResource ImageIdConverter}}" />
+            <StackLayout IsVisible="{Binding ImageIdVisible}">
+                <Label Text="Image ID:" />
+                <Label Text="{Binding ImageId}" />
+            </StackLayout>
+            <Button Text="Add Image"
+                IsEnabled="{Binding PhotoButtonEnable}"
+                Command="{Binding AddImageCommand}" />
+            <Button Text="Update"
+                    Command="{Binding PostChangeCommand}" />
+            <Entry Text="{Binding OldPassword}"
+                   IsPassword="True"
+                   Placeholder="Old Password" />
+            <Entry Text="{Binding NewPassword}"
+                   IsPassword="True"
+                   Placeholder="New Password"/>
+            <Button Text="Update"
+                    Command="{Binding PostPasswordCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</forms:BaseContentPage>

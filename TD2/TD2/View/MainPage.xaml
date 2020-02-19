@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms:BaseContentPage
+    xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:TD2"
+    xmlns:localConverter="clr-namespace:TD2.Converter"
+    mc:Ignorable="d"
+    x:Class="TD2.View.MainPage"
+    Title="PlaceListItem">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="profil.png"
+                     Command="{Binding GoCustomCommand}"
+                     Order="Primary"
+                     Priority="0"/>
+        <ToolbarItem IconImageSource="plus.png"
+                     Command="{Binding GoNewPlaceCommand}"
+                     Order="Primary"
+                     Priority="0" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <localConverter:ImageIdConverter x:Key="ImageIdConverter" />
+    </ContentPage.Resources>
+
+    <RelativeLayout
+        VerticalOptions="FillAndExpand">
+        <ListView
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+            ItemsSource="{Binding PlaceList}"
+            SelectedItem="{Binding SelectedPlace, Mode=TwoWay}"
+            HasUnevenRows="True"
+            SeparatorColor="Black"
+            Footer="">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:PlaceItemSummary">
+                    <ImageCell ImageSource="{Binding ImageId, Converter={StaticResource ImageIdConverter}}"
+                               Text="{Binding Title}"
+                                Detail="{Binding Description}"
+                                Command="{Binding SelectPlaceCommand}"
+                                CommandParameter="{Binding .}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </RelativeLayout>
+</forms:BaseContentPage>

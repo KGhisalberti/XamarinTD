@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<forms:BaseContentPage
+    xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms" xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:localConverter="clr-namespace:TD2.Converter"
+    xmlns:local="clr-namespace:TD2"
+    mc:Ignorable="d"
+    x:Class="TD2.View.CommentListPage">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="plus.png"
+                     Command="{Binding CreateCommentCommand}"
+                     Order="Primary"
+                     Priority="1" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <localConverter:AuthorConverter x:Key="AuthorConverter" />
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+            ItemsSource="{Binding ComList}"
+            HasUnevenRows="True"
+            SeparatorColor="Black"
+            Footer="" >
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:CommentItem">
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Author, Converter={StaticResource AuthorConverter}}" />
+                                    <Label Text="{Binding Date}" />
+                                </StackLayout>
+                                <Label Text="{Binding Text}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</forms:BaseContentPage>
